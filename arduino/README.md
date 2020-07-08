@@ -1,3 +1,3 @@
-# arduino
+# Arduino
 
-My code for arduino projects
+My code for my arduino projects
