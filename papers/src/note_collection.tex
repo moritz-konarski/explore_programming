@@ -1,0 +1,47 @@
+\documentclass[a4paper, 12pt, oneside]{book}
+
+\newcommand{\heading}{A Paper A Day Note Collection}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\hypersetup{
+    final,
+    pdftitle={\heading},
+    pdfauthor={Moritz M. Konarski},
+    pdfsubject={Mathematics, Computer Science},
+    breaklinks=true
+}
+\usepackage{import}
+\usepackage{minitoc}
+\usepackage{chapterbib}
+
+
+\title{\heading}
+\author{Moritz M. Konarski}
+\date{\today}
+
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\dominitoc
+\tableofcontents
+\mainmatter
+
+\chapter{Computer Science}
+\minitoc
+
+\input{../01_computing_and_intelligence-turing/section}
+
+\nocite{*}
+\bibliographystyle{siam}
+\bibliography{../bib_cs.bib}
+
+\chapter{Mathematics}
+
+\end{document}

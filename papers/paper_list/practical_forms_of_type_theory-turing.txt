@@ -1,0 +1,13 @@
+@article{10.2307/2267329,
+ ISSN = {00224812},
+ URL = {http://www.jstor.org/stable/2267329},
+ author = {A. M. Turing},
+ journal = {The Journal of Symbolic Logic},
+ number = {2},
+ pages = {80--94},
+ publisher = {Association for Symbolic Logic},
+ title = {Practical Forms of Type Theory},
+ volume = {13},
+ year = {1948}
+}
+

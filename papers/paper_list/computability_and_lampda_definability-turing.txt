@@ -1,0 +1,13 @@
+@article{10.2307/2268280,
+ ISSN = {00224812},
+ URL = {http://www.jstor.org/stable/2268280},
+ author = {A. M. Turing},
+ journal = {The Journal of Symbolic Logic},
+ number = {4},
+ pages = {153--163},
+ publisher = {[Association for Symbolic Logic, Cambridge University Press]},
+ title = {Computability and λ-Definability},
+ volume = {2},
+ year = {1937}
+}
+

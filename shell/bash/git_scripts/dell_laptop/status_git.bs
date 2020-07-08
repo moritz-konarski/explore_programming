@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+BASE=/m/Misc/Desktop/Git
+
+ARDUINO=$BASE/arduino/
+AUCA=$BASE/auca/
+C_PROJECTS=$BASE/c_projects/
+MISC_FILES=$BASE/misc_files/
+QMK_SOURCE=$BASE/qmk_source/
+RASPBERRY_PI=$BASE/raspberry_pi/
+WEATHER_PI=$BASE/weather_pi/
+WEATHER_PI_DEV=$BASE/weather_pi_dev/
+
+for repo in $ARDUINO $AUCA $C_PROJECTS $MISC_FILES $QMK_SOURCE $RASPBERRY_PI $WEATHER_PI $WEATHER_PI_DEV; do
+  cd $repo
+  if [[ `git status --porcelain` ]]; then
+    echo "--> Changes in $repo"
+  else
+    echo "No changes in $repo"
+  fi
+  echo " "
+  cd $BASE
+done
