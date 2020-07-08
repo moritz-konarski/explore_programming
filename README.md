@@ -1,6 +1,7 @@
 # Explore Programming
 
-My exploration of different programming languages. I'm looking at:
+My exploration of different programming languages and programming related
+things. This includes:
 - C
 - C++
 - Rust
@@ -8,3 +9,6 @@ My exploration of different programming languages. I'm looking at:
 - Haskell
 - Erlang
 - Elixir
+- Arduino
+- Computer Science Papers
+- QMK software
