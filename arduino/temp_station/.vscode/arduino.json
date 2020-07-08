@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "ds18b20_sensor/sensor_interface.ino",
+    "port": "COM4"
+}

@@ -1,0 +1,4 @@
+{
+    "sketch": "lib_reading.ino",
+    "board": "arduino:avr:uno"
+}
