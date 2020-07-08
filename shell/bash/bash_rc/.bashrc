@@ -95,8 +95,7 @@ alias l='ls -CF'
 alias cdl='cd ~/Documents/auca_la.git/'
 alias cdm='cd ~/Documents/auca_math.git/'
 alias cdc='cd ~/Documents/auca_cs.git/'
-alias cdp='cd ~/Documents/c_projects.git/'
-alias cda='cd ~/Documents/a_paper_a_day.git/'
+alias cdp='cd ~/Documents/programming.git/'
 # alias functions for okular
 o() {
     screen -dm "okular" "$1" 
@@ -109,7 +108,7 @@ f() {
 pc() {
     in_file=$1
     out_file="$(basename -s $in_file .md)"
-    pandoc $1 -o "_"$(basename $in_file .md)".pdf" -V papersize=a4 -V linkcolor=blue -V geometry:margin=1in -V fontsize=12pt
+    pandoc $1 -o "_"$(basename $in_file .md)".pdf" -V papersize=a4 -V linkcolor=blue -V geometry:margin=1in -V fontsize=12pt --toc --toc-depth=4
 }
 # alias for spell checking
 spell_check() {
