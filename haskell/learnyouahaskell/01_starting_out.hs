@@ -22,7 +22,8 @@ stringEqualsList = "hello" == ['h','e','l','l','o']
 
 -- we can concatenate lists with ++
 concatTest = [1,2,3,4] ++ [9,10,11,12]
--- take care though, with ++ haskell walks through all elements of the list on the left
+-- take care though, with ++ haskell walks through all elements of the list on 
+-- the left
 
 -- putting number at the begging with : is instantaneous
 addToStart = 5:[1,2,3,4,5]
@@ -36,8 +37,10 @@ addTest = 1:2:3:[] == [1,2,3]
 getLetter x = "getLetter" !! x
 
 -- head: l[0]; tail: all but l[0]; last: last element; init: all but last
--- length; null: returns True if empty; reverse; take x: returns the first x elements
--- drop x: drops the first x elements; maximum, minimum; sum, product; x `elem` l: True or False
+-- length; null: returns True if empty; reverse; take x: returns the first x 
+-- elements
+-- drop x: drops the first x elements; maximum, minimum; sum, product; x `elem` 
+-- l: True or False
 
 -- ranges: all between x..y
 alphabet = ['a'..'z']
@@ -49,7 +52,8 @@ threes = [0,3..30]
 -- we can also ask for the first elements of an infinite list
 semiInfinite = take 24 [13,26..]
 
--- cycle creates an infinite list from some list; repeat takes one element and turns it into an infinite list
+-- cycle creates an infinite list from some list; repeat takes one element and 
+-- turns it into an infinite list
 -- replicate x y gives x of y
 
 -- list comprehensions or filtering
@@ -58,8 +62,10 @@ tenEvenNums = [x*2 | x <- [1..10]]
 -- filtering of numbers with if statements
 booms xs = [if x < 10 then "Boom!" else "Bang!" | x <- xs, odd x]
 
--- general form: [ results come here, can be altered | assigned values, boolean predicate, more predicates]
--- if multiple lists are used, comma separated, they produce all possible combinations
+-- general form: [ results come here, can be altered | assigned values, boolean 
+-- predicate, more predicates]
+-- if multiple lists are used, comma separated, they produce all possible 
+-- combinations
 
 -- they also work with strings
 nouns = ["hobo","frog","pope"]  
@@ -67,7 +73,8 @@ adjectives = ["lazy","grouchy","scheming"]
 funnyWords = [adjective ++ " " ++ noun | adjective <- adjectives, noun <- nouns]  
 
 -- own version of length
--- _ is placeholder for a variable; it returns 1 for each list element and then sums it up
+-- _ is placeholder for a variable; it returns 1 for each list element and then 
+-- sums it up
 length' xs = sum [1 | _ <- xs]
 
 -- only return uppper case
@@ -75,5 +82,20 @@ returnUpperCase st = [ c | c <- st, c `elem` ['A'..'Z']]
 
 -- spreading list comprehensions over multiple lines is a good idea 
 
+-- Tuples can also hold multiple values, but they don't need to be of the same 
+-- type
+-- tuples have a set number of elements, a list of tuples can only accept the 
+-- same type of tuple
+listOfPoints = [(1,2), (3,4), (10,11)]
 
--- Tuples
+-- tuples can also contain lists, and store connected information
+personalInfo = ("Moritz", "Konarski", 21)
+
+-- fst returns a tuples first element, snd returns the second component, but 
+-- only on pairs
+
+-- zip takes two lists and returns a list of their tuples
+zipTest = zip [1,2,3,4,5,6,7] ["One", "Two", "Three", "Four"]
+
+-- problem combining listcomprehensions and tuples
+triangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2, a + b + c == 24]
