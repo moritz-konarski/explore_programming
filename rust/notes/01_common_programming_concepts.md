@@ -176,7 +176,7 @@ are 15
 
 ##### Accessing Array Elements
 
-- access elements using indexes in square brakets
+- access elements using indexes in square brackets
     ```
     let a = [1, 2, 3, 4, 5];
 
@@ -244,7 +244,7 @@ are 15
 
 - the type of return values is declared after `->` after the function signature
 - the return value is the same as the last expression in a code block
-- `return` can be used to return explicitely or early, most returns are
+- `return` can be used to return explicitly or early, most returns are
 implicit and on the last line
     ```
     fn five() -> i32 {

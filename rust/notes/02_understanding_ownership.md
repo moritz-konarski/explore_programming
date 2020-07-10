@@ -158,7 +158,7 @@ thus the same rules apply
         makes_copy(x);                      // x is Copy and is thus 
                                             // still valid
     }   // x and then s go out of scope
-        // nothing special happes to s because it is already invalid
+        // nothing special happens to s because it is already invalid
     
     fn takes_ownership(s: String) {         // s comes into scope
         println!("{}", s);
@@ -291,3 +291,94 @@ number of immutable references
 - slices do not have ownership
 - slices reference a contiguous sequence of elements in a collection rather
 than the whole collection
+- imagine a function that returns the first word in a string, or the index of
+the end of the word
+    ```
+    fn first_word(s: &String) -> usize {
+        let bytes = s.as_bytes();       // convert to array of bytes
+
+        // iterate over the bytes, iter returns each element 
+        // in a collection, enumerate returns an index and a
+        // reference as a tuple
+        for (i, &item) in bytes.iter().enumerate() {
+            // compare the byte using the byte literal syntax
+            if item == b' ' {
+                return i;
+            }
+        }
+
+        s.len()
+    }
+    ```
+- the problem with this is that the returned `usize` is not connected to the
+sting but meaningless without it
+- having to worry about the index is stupid, even more so when two indices are
+to be returned -- the solution? string slices
+
+### String Slices
+
+- strings slices are references to parts of strings
+    ```
+    let s = String::from("hello world");
+
+    let hello = &s[0..5];
+    let world = &s[6..11];
+    ```
+- similar to a string with extra indices for the beginning and the end
+- they are constructed as
+    ```
+    [starting_index..ending_index]      // ending_index is one more
+                                        // than the last position
+    ```
+- the slices stores the starting position and the length of the slice
+- range syntax in Rust allows the first 0 to be omitted `[0..2] == [..2]`
+- the last byte of the string can also be omitted `[0..len] == [..]`
+- the rewritten function from above is
+    ```
+    fn first_word(s: &String) -> &str {
+        let bytes = s.as_bytes();
+
+        for (i, &item) in bytes.iter().enumerate() {
+            if item == b' ' {
+                return &s[0..i];
+            }
+        }
+
+        &s[..]
+    }
+    ```
+- with these slices it is impossible to get disconnected values that have
+nothing to do with each other
+- a compiler error will occur because the slice is an immutable burrow and any
+modification would necessitate a mutable borrow, which is illegal
+
+#### String Literals Are Slices
+
+- string literals are slices that point to specific areas of the binary where
+the literal is stored
+- their type is `&str`
+
+#### String Slices as Parameters
+
+- using `&str` as parameter means that both string slices and String can be
+used with it
+    ```
+    let my_string = String::from("hello world!");
+
+    let word = first_word(&my_string[..]);
+
+    let my_literal = "literal";
+
+    let word = first_word(&my_literal[..]);
+
+    let word = first_word(my_literal);
+    ```
+
+### Other Slices
+
+- slices work on other data types too, like arrays -- their type is `&[i32]`
+    ```
+    let a = [1,2,3,4,5];
+
+    let slice = &a[1..3];
+    ```
