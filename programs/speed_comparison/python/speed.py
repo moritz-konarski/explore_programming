@@ -11,5 +11,5 @@ def func():
 if __name__ == '__main__':
     pi = func();
     for i in range(10):
-        print("time: ", timeit.timeit("func()", setup="from __main__ import func", number=1))
+        print("time:   ", timeit.timeit("func()", setup="from __main__ import func", number=1))
     print("result: ", pi * 4)
