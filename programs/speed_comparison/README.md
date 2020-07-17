@@ -3,7 +3,7 @@
 Speed comparison of programming languages running the [Leibniz formula for
 Pi](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80)
 
-TODO:\\
+TODO:
 - [ ] add more languages
 - [ ] make execution easier (script)
 - [ ] store results, make graph
