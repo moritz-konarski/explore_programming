@@ -277,3 +277,5 @@ __pycache__/
 *.iml
 **out
 **target
+*.o
+*.hi
