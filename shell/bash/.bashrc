@@ -98,11 +98,7 @@ alias cdc='cd ~/Documents/auca_cs.git/'
 alias cdp='cd ~/Documents/programming.git/'
 # alias functions for okular
 o() {
-    screen -dm "okular" "$1" 
-}
-# alias functions for foxit 
-f() {
-    screen -dm "/home/moritz/opt/foxitsoftware/foxitreader/FoxitReader" "$1"
+    evince $1
 }
 # alias for quick pandoc compilation
 pc() {
@@ -128,6 +124,7 @@ word_count() {
 export PATH=~/'clion-2019.3.2'/bin:$PATH
 export PATH=~/'idea-IU-193.5662.5.3'/bin:$PATH
 export PATH=/usr/share/texlive:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
