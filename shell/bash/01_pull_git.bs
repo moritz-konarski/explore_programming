@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BASE=~/Documents
+
+AUCA_MATH=$BASE/auca_math.git/
+AUCA_CS=$BASE/auca_cs.git/
+AUCA_LA=$BASE/auca_la.git/
+PROG=$BASE/programming.git/
+
+echo " "
+
+for repo in $AUCA_MATH $AUCA_CS $AUCA_LA $PROG; do
+  cd $repo
+  echo "$repo"
+  git up  
+  cd $BASE
+  echo " "
+done
+

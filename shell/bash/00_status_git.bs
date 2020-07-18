@@ -1,0 +1,22 @@
+#!/bin/bash
+
+BASE=~/Documents
+
+AUCA_MATH=$BASE/auca_math.git/
+AUCA_CS=$BASE/auca_cs.git/
+AUCA_LA=$BASE/auca_la.git/
+PROG=$BASE/programming.git/
+
+echo " "
+
+for repo in $AUCA_MATH $AUCA_CS $AUCA_LA $PROG; do
+  cd $repo
+  if [[ `git status --porcelain` ]]; then
+      echo "--> changes in $repo"
+  else
+      echo "no changes in $repo"
+  fi
+  cd $BASE
+  echo " "
+done
+
