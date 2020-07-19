@@ -121,11 +121,6 @@ word_count() {
     detex $1 | wc -w
 }
 
-export PATH=~/'clion-2019.3.2'/bin:$PATH
-export PATH=~/'idea-IU-193.5662.5.3'/bin:$PATH
-export PATH=/usr/share/texlive:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -158,3 +153,20 @@ export PATH="$PATH:/home/moritz/.local/bin"
 export PATH="$PATH:/usr/local/texlive/2020/bin/x86_64-linux"
 export MANPATH="$MANPATH:/usr/local/texlive/2020/texmf-dist/doc/man"
 export INFOPATH="$INFOPATH:/usr/local/texlive/2020/texmf-dist/doc/man"
+export PATH=$HOME/.cargo/bin:$PATH
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/moritz/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/moritz/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/moritz/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/moritz/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
