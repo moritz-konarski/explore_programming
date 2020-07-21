@@ -46,14 +46,14 @@ data on the heap etc
 - when a variable comes _into scope_ it is valid, when is goes _out of scope_
 it becomes invalid
 - scopes are generally encapsulated by or related to curly brackets
-    ```
-    {                       // s comes into scope
-        let s = "hello";
+```
+{                       // s comes into scope
+    let s = "hello";
 
-                            // s is valid
+                        // s is valid
 
-    }                       // s goes out of scope
-    ```
+}                       // s goes out of scope
+```
 
 ### The `String` Type
 
@@ -66,14 +66,14 @@ use
 coded
 - `String` is allocated on the heap and can change at runtime, they can be
 created from string literals
-    ```
-    let s = String::from("hello");
-    ```
+```
+let s = String::from("hello");
+```
 - the resulting type can be modified:
-    ```
-    let mut s = String::from("hello");
-    s.push_str(", world!");         // appends to s
-    ```
+```
+let mut s = String::from("hello");
+s.push_str(", world!");         // appends to s
+```
 - the difference between `String` and string literals is the way they deal with
 memory
 
@@ -86,9 +86,9 @@ that might change
 - `String` is growable, so: its memory must be requested from the OS at
 runtime; the memory must be returned to the OS when the `String` is done
 - the programmer does the allocation manually 
-    ```
-    String::from
-    ```
+```
+String::from
+```
 - normally memory is either freed by a garbage collector or manually by the
 programmer, in Rust it is freed when the variable goes out of scope
 - when `s` goes out of scope the `drop` function associated with it is
@@ -100,15 +100,15 @@ code
 
 - if two primitive data types are set equal, the data is copied and then there
 are two variables with two copies of the same data, both are on the stack
-    ```
-    let x = 5;
-    let y = x;
-    ```
+```
+let x = 5;
+let y = x;
+```
 - for `String` this is different
-    ```
-    let s1 = String::from("hello");
-    let s2 = s1;
-    ```
+```
+let s1 = String::from("hello");
+let s2 = s1;
+```
 - `s1` is made up of a `ptr`, `len`, and `capacity`, the pointer points to the
 first element of the string in memory, `len` is the amount of bytes of memory
 that the string is currently using and `capacity` is the total amount of
@@ -126,20 +126,20 @@ anything -- it will be fast by default
 #### Ways Variables and Data Interact: Clone
 
 - if we do want a deep copy of the data on the heap we use `clone`
-    ```
-    let s1 = String::from("hello");
-    let s2 = s1.clone();
-    ```
+```
+let s1 = String::from("hello");
+let s2 = s1.clone();
+```
 - `clone` is something that is expensive to call
 
 #### Stack-Only Data: Copy
 
 - if a type has the `copy` trait, an older version of the variable is still
 valid after copying, like with integers
-    ```
-    let x = 5;
-    let y = x;
-    ```
+```
+let x = 5;
+let y = x;
+```
 - a type can't have the `copy` trait if any of its parts implement `drop`
 - all simple or primitive types are copy
 
@@ -147,58 +147,58 @@ valid after copying, like with integers
 
 - passing a variable to a function is similar to assigning values to variables,
 thus the same rules apply
-    ```
-    fn main() {
-        let s = String::from("hello");      // s comes into scope
-        takes_ownership(s);                 // value of s moves into 
-                                            // function
-                                            // it's no longer valid
+```
+fn main() {
+    let s = String::from("hello");      // s comes into scope
+    takes_ownership(s);                 // value of s moves into 
+                                        // function
+                                        // it's no longer valid
 
-        let x = 5;                          // x comes into scope
-        makes_copy(x);                      // x is Copy and is thus 
-                                            // still valid
-    }   // x and then s go out of scope
-        // nothing special happens to s because it is already invalid
-    
-    fn takes_ownership(s: String) {         // s comes into scope
-        println!("{}", s);
-    }   // s goes out of scope and drop is called, memory is freed
+    let x = 5;                          // x comes into scope
+    makes_copy(x);                      // x is Copy and is thus 
+                                        // still valid
+}   // x and then s go out of scope
+    // nothing special happens to s because it is already invalid
 
-    fn makes_copy(i: i32) {                 // i comes into scope
-        println!("{}", i);
-    }   // i goes out of scope, not affecting x
-    ```
+fn takes_ownership(s: String) {         // s comes into scope
+    println!("{}", s);
+}   // s goes out of scope and drop is called, memory is freed
+
+fn makes_copy(i: i32) {                 // i comes into scope
+    println!("{}", i);
+}   // i goes out of scope, not affecting x
+```
 - if `s` were to be used after the `takes_ownership(s)` was called, a compile
 time error would happen
 
 ### Return Values and Scope
 
 - returning values can also transfer ownership
-    ```
-    fn main() {
-        let s1 = give_ownership();          // fn moves its return
-                                            // value to s1
+```
+fn main() {
+    let s1 = give_ownership();          // fn moves its return
+                                        // value to s1
 
-        let s2 = String::from("hello");     // s2 comes into scope
+    let s2 = String::from("hello");     // s2 comes into scope
 
-        let s3 = takes_and_gives_back(s2);  // s2 moved into fn
-                                            // return value moved to s3
-    }   // s3 goes out of scope and is dropped, so does s1.
-        // s2 is already out of scope, so nothing happens
+    let s3 = takes_and_gives_back(s2);  // s2 moved into fn
+                                        // return value moved to s3
+}   // s3 goes out of scope and is dropped, so does s1.
+    // s2 is already out of scope, so nothing happens
 
-    fn gives_ownership() -> String {        // will move return value
-                                            // into calling fn
-        let s = String::from("hello");      // s comes into scope
-        s                                   // s is returned and moves
-                                            // to the calling function
-    }   // nothing goes out of scope
+fn gives_ownership() -> String {        // will move return value
+                                        // into calling fn
+    let s = String::from("hello");      // s comes into scope
+    s                                   // s is returned and moves
+                                        // to the calling function
+}   // nothing goes out of scope
 
-    fn takes_and_gives_back(s: String) -> String {
-                                            // s comes into scope
-        s                                   // s is returned and moves
-                                            // to the calling fn
-    }   // nothing goes out of scope
-    ```
+fn takes_and_gives_back(s: String) -> String {
+                                        // s comes into scope
+    s                                   // s is returned and moves
+                                        // to the calling fn
+}   // nothing goes out of scope
+```
 - assigning the value of a variable to another moves it
 - when an active variable goes out of scope, it is dropped
 - one option for returning ownership of the argument plus a result is to return
@@ -210,17 +210,17 @@ a tuple from a function -- a better way to do it is to use _references_
 so the argument can be used afterwards
 - passing references to functions instead of taking ownership is the solution
 to that
-    ```
-    fn main() {
-        let s1 = String::from("hello");
-        let len = calculate_length(&s1);
-        println!("The length of '{}' is {}.", s1, len);
-    }
+```
+fn main() {
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1);
+    println!("The length of '{}' is {}.", s1, len);
+}
 
-    fn calculate_length(s: &String) -> usize {
-        s.len()
-    }
-    ```
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
 - ampersands '`&`' are _references_ and enable referring to values without
 taking ownership 
 - above, `s` points to `s1` which points to the actual value
@@ -234,16 +234,16 @@ be dropped when `s` goes out of scope
 
 - creating a mutable string and then passing a mutable reference to a function
 allows variables to be modified using their references
-    ```
-    fn main() {
-        let mut s = String::from("hello");
-        change(&mut s);
-    }
+```
+fn main() {
+    let mut s = String::from("hello");
+    change(&mut s);
+}
 
-    fn change(s: &mut String) {
-        s.push_str(", world");
-    }
-    ```
+fn change(s: &mut String) {
+    s.push_str(", world");
+}
+```
 - big restriction: there can only be one mutable reference to a particular
 piece of data in a particular scope
 - this only allows restricted mutation -- less than most other languages
@@ -266,18 +266,18 @@ one can be created even if the other ones are technically still in scope
 
 - these are created when a reference to a non-existent memory exists, producing
 undefined behavior
-    ```
-    fn main() {
-        let ref_to_nothing = dangle();
-    }
+```
+fn main() {
+    let ref_to_nothing = dangle();
+}
 
-    fn dangle() -> &String {                // returns ref to str
-        let s = String::from("hello");      // s is new string
+fn dangle() -> &String {                // returns ref to str
+    let s = String::from("hello");      // s is new string
 
-        &s                                  // return ref to str
-    }   // s goes out of scope here and is dropped
-        // the reference now refers to nothing
-    ```
+    &s                                  // return ref to str
+}   // s goes out of scope here and is dropped
+    // the reference now refers to nothing
+```
 - the simple solution here is to return the string with ownership instead
 
 ### The Rules of References
@@ -293,23 +293,23 @@ number of immutable references
 than the whole collection
 - imagine a function that returns the first word in a string, or the index of
 the end of the word
-    ```
-    fn first_word(s: &String) -> usize {
-        let bytes = s.as_bytes();       // convert to array of bytes
+```
+fn first_word(s: &String) -> usize {
+    let bytes = s.as_bytes();       // convert to array of bytes
 
-        // iterate over the bytes, iter returns each element 
-        // in a collection, enumerate returns an index and a
-        // reference as a tuple
-        for (i, &item) in bytes.iter().enumerate() {
-            // compare the byte using the byte literal syntax
-            if item == b' ' {
-                return i;
-            }
+    // iterate over the bytes, iter returns each element 
+    // in a collection, enumerate returns an index and a
+    // reference as a tuple
+    for (i, &item) in bytes.iter().enumerate() {
+        // compare the byte using the byte literal syntax
+        if item == b' ' {
+            return i;
         }
-
-        s.len()
     }
-    ```
+
+    s.len()
+}
+```
 - the problem with this is that the returned `usize` is not connected to the
 sting but meaningless without it
 - having to worry about the index is stupid, even more so when two indices are
@@ -318,35 +318,35 @@ to be returned -- the solution? string slices
 ### String Slices
 
 - strings slices are references to parts of strings
-    ```
-    let s = String::from("hello world");
+```
+let s = String::from("hello world");
 
-    let hello = &s[0..5];
-    let world = &s[6..11];
-    ```
+let hello = &s[0..5];
+let world = &s[6..11];
+```
 - similar to a string with extra indices for the beginning and the end
 - they are constructed as
-    ```
-    [starting_index..ending_index]      // ending_index is one more
-                                        // than the last position
-    ```
+```
+[starting_index..ending_index]      // ending_index is one more
+                                    // than the last position
+```
 - the slices stores the starting position and the length of the slice
 - range syntax in Rust allows the first 0 to be omitted `[0..2] == [..2]`
 - the last byte of the string can also be omitted `[0..len] == [..]`
 - the rewritten function from above is
-    ```
-    fn first_word(s: &String) -> &str {
-        let bytes = s.as_bytes();
+```
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
 
-        for (i, &item) in bytes.iter().enumerate() {
-            if item == b' ' {
-                return &s[0..i];
-            }
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
         }
-
-        &s[..]
     }
-    ```
+
+    &s[..]
+}
+```
 - with these slices it is impossible to get disconnected values that have
 nothing to do with each other
 - a compiler error will occur because the slice is an immutable burrow and any
@@ -362,23 +362,23 @@ the literal is stored
 
 - using `&str` as parameter means that both string slices and String can be
 used with it
-    ```
-    let my_string = String::from("hello world!");
+```
+let my_string = String::from("hello world!");
 
-    let word = first_word(&my_string[..]);
+let word = first_word(&my_string[..]);
 
-    let my_literal = "literal";
+let my_literal = "literal";
 
-    let word = first_word(&my_literal[..]);
+let word = first_word(&my_literal[..]);
 
-    let word = first_word(my_literal);
-    ```
+let word = first_word(my_literal);
+```
 
 ### Other Slices
 
 - slices work on other data types too, like arrays -- their type is `&[i32]`
-    ```
-    let a = [1,2,3,4,5];
+```
+let a = [1,2,3,4,5];
 
-    let slice = &a[1..3];
-    ```
+let slice = &a[1..3];
+```
