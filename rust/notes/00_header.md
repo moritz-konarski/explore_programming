@@ -5,6 +5,7 @@ date:       \today
 keywords:   [Rust, programming, notes, learn programming]
 documentclass: book
 classoption:
+- oneside
 - a4paper
 - 11pt
 geometry:
@@ -12,4 +13,5 @@ geometry:
 hyperrefoptions:
 - linktoc=all
 - colorlinks=true
+utopia:
 ---
