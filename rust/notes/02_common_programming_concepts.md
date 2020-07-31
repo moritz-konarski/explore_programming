@@ -388,4 +388,3 @@ excluding the last, use
         // code
     }
 ```
-\newpage

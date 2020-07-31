@@ -1,4 +1,4 @@
-# Chapter 5: Using Structs to Structure Related Data
+# Using Structs to Structure Related Data
 
 - a struct is a custom data type that packages multiple related values and
 makes them a meaningful group
@@ -11,56 +11,56 @@ makes them a meaningful group
 - the data in a struct can be of different types
 - each piece of data is named to make things clear
 - data is entered in fields whose name and type are specified
-```
-struct User {
-    username: String,
-    email: String,
-    sign_in_count: u64,
-    active: bool,
-}
+```rust
+    struct User {
+        username: String,
+        email: String,
+        sign_in_count: u64,
+        active: bool,
+    }
 ```
 - an instance of the struct needs to be created by giving values for the fields
 - the instance is created with the fields in `key: value` pairs, or just values
 if the order is the same as in the definition
-```
-let user1 = User {
-    email: String::from("someone@example.com"),
-    username: String::from("somename"),
-    active: true,
-    sign_in_count: 1,
-};
-```
-- to access and to change (if struct is mut) the dot notation is used
-```
-let name = user.name;
-
-user1.email = String::from("changed@example.com");
-```
-- functions can return structs
-```
-fn build_user(email: String, username: String) -> User {
-    User {
-        email: email,
-        username: username,
+```rust
+    let user1 = User {
+        email: String::from("someone@example.com"),
+        username: String::from("somename"),
         active: true,
         sign_in_count: 1,
+    };
+```
+- to access and to change (if struct is mut) the dot notation is used
+```rust
+    let name = user.name;
+
+    user1.email = String::from("changed@example.com");
+```
+- functions can return structs
+```rust
+    fn build_user(email: String, username: String) -> User {
+        User {
+            email: email,
+            username: username,
+            active: true,
+            sign_in_count: 1,
+        }
     }
-}
 ```
 - repeating `username` and `email` every time is tedious
 
 ### Using the Field Init Shorthand when Variables and Fields Have the Same Name
 
 - we can rewrite the function above to make it shorter
-```
-fn build_user(email: String, username: String) -> User {
-    User {
-        email,
-        username,
-        active: true,
-        sign_in_count: 1,
+```rust
+    fn build_user(email: String, username: String) -> User {
+        User {
+            email,
+            username,
+            active: true,
+            sign_in_count: 1,
+        }
     }
-}
 ```
 
 ### Creating Instances From Other Instances With Struct Update Syntax
@@ -68,12 +68,12 @@ fn build_user(email: String, username: String) -> User {
 - often one wants to copy parts of an existing struct and change some values
 - the struct update syntax makes is short, `..` implies that the other fields
 should be takes from the specified instance
-```
-let user2 = User {
-    email: String::from("newmail"),
-    username: String::from("newuser"),
-    ..user1
-};
+```rust
+    let user2 = User {
+        email: String::from("newmail"),
+        username: String::from("newuser"),
+        ..user1
+    };
 ```
 
 ### Using Tuple Structs without Name dFiels to Create Different Types
@@ -81,11 +81,11 @@ let user2 = User {
 - tuple structs are structs that look similar to tuples
 - they are for cases where the struct naming is useful but naming each part of
 the struct is superflous
-```
-struct Color(i32, i32, i32);
-struct Point(i32, i32, i32);
+```rust
+    struct Color(i32, i32, i32);
+    struct Point(i32, i32, i32);
 
-let origin = Point(0, 0, 0);
+    let origin = Point(0, 0, 0);
 ```
 - Color and Point are different types even though they store the same kind of
 data
@@ -110,52 +110,52 @@ else
 a rectangle
 - starting with a program that only uses variables and then refactoring stuff
 until there are only structs left
-```
-fn main() {
-    let width1 = 30;
-    let height1 = 50;
+```rust
+    fn main() {
+        let width1 = 30;
+        let height1 = 50;
 
-    println!("The area of the rectangle is {} square pixels", 
-        area(width1, height1));
-}
+        println!("The area of the rectangle is {} square pixels", 
+            area(width1, height1));
+    }
 
-fn area(width: u32, height: u32) -> u32 {
-    width * height
-}
+    fn area(width: u32, height: u32) -> u32 {
+        width * height
+    }
 ```
 - while it works, the parameters of `area()` don't have an obvious connection
 - the previously discussed tuple type could be useful here
-```
-fn main() {
-    let rect = (30, 50);
+```rust
+    fn main() {
+        let rect = (30, 50);
 
-    println!("The area of the rectangle is {} square pixels", 
-        area(rect));
-}
+        println!("The area of the rectangle is {} square pixels", 
+            area(rect));
+    }
 
-fn area(dimensions: (u32, u32)) -> u32 {
-    dimensions.0 * dimensions.1
-}
+    fn area(dimensions: (u32, u32)) -> u32 {
+        dimensions.0 * dimensions.1
+    }
 ```
 - this version is both more and less clear
 - the calls are shorter but the calculations are less clear; the meaning of the
 data is not clear
-```
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
+```rust
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
 
-fn main() {
-    let rect = Rectangle {width: 30, height: 50};
+    fn main() {
+        let rect = Rectangle {width: 30, height: 50};
 
-    println!("The area of the rectangle is {} square pixels", 
-        area(&rect));
-}
+        println!("The area of the rectangle is {} square pixels", 
+            area(&rect));
+    }
 
-fn area(rectangle: &Rectangle) -> u32 {
-    rectangle.height * rectangle.width
-}
+    fn area(rectangle: &Rectangle) -> u32 {
+        rectangle.height * rectangle.width
+    }
 ```
 - this version of the code is much clearer and more understandable
 
@@ -166,16 +166,16 @@ values of all of its fields
 - standard printing does not work because it is not implemented
 - the `{:?}` syntax is from Debug and it has to be opted in by putting the
 below code before the struct definition
-```
-#[derive(Debug)]
+```rust
+    #[derive(Debug)]
 ```
 - we see `rect1 is Rectangle { width: 30, height: 50 }`, when we use `{:#?}`
 the output is
-```
-rect1 is Rectangle {
-    width: 30,
-    height: 50
-}
+```rust
+    rect1 is Rectangle {
+        width: 30,
+        height: 50
+    }
 ```
 - for more types and traits and behaviors we can derive see Appendix C
 - it would be useful to be able to tie the `area` function to the `Rectangle`
@@ -190,12 +190,12 @@ of a struct, enum, or trait object and their first parameter is always self
 ### Defining Methods
 
 - changing the area function yields the following result
-```
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
+```rust
+    impl Rectangle {
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
     }
-}
 ```
 - `impl` means implementation and starts the context of Rectangle
 - the first argument of a method is `&self` followed by all necessary arguments
@@ -210,10 +210,10 @@ which one is needed so the code can be cleaner and Rust takes care of the rest
 ### Methods with More Parameters
 
 - new method that checks if one rectangle can fit completely into another one
-```
-fn can_hold(&self, other: &Rectangle) -> bool {
-    self.width > other.width && self.height > other.height
-}
+```rust
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
 ```
 
 ### Associated Functions
@@ -224,10 +224,10 @@ a parameter
 `String::from`
 - associated functions can be used as constructors that return a new instance
 of the struct
-```
-fn build_square(side_length: u32) -> Rectangle {
-    Rectangle {width: side_length, height: side_length}
-}
+```rust
+    fn build_square(side_length: u32) -> Rectangle {
+        Rectangle {width: side_length, height: side_length}
+    }
 ```
 
 ### Multiple `impl` Blocks
@@ -237,4 +237,3 @@ fn build_square(side_length: u32) -> Rectangle {
 ## Summary
 
 - structs let you create custom types that are meaningful for your code
-\newpage

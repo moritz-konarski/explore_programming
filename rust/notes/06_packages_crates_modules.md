@@ -1,4 +1,4 @@
-# Chapter 7: Managing Growing Projects with Packages, Crates, and Modules
+# Managing Growing Projects with Packages, Crates, and Modules
 
 - with large projects organization becomes super important to stay on top of
 things
@@ -40,6 +40,3 @@ from the first program is an example of that
 ## Defining Modules to Control Scope and Privacy
 
 - 
-
-
-\newpage
