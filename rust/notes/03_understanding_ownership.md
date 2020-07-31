@@ -1,4 +1,4 @@
-# Understanding Ownership
+# Chapter 4: Understanding Ownership
 
 - ownership is meant to make memory safe without having a garbage collector
 - this chapter will cover ownership, borrowing, slices, data in memory layouts
@@ -382,3 +382,4 @@ let a = [1,2,3,4,5];
 
 let slice = &a[1..3];
 ```
+\newpage

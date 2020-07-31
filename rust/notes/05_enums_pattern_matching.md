@@ -1,4 +1,4 @@
-# Enums and Pattern Matching
+# Chapter 6: Enums and Pattern Matching
 
 - enums are enumerations -- types defined by their possible variants
 - enums, the `Option` enum, `match` expression, `if let` construct
@@ -242,3 +242,4 @@ if let Coin::Quarter(state) = coin {
     count += 1;
 }
 ```
+\newpage

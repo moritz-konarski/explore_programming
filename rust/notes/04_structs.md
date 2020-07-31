@@ -1,4 +1,4 @@
-# Using Structs to Structure Related Data
+# Chapter 5: Using Structs to Structure Related Data
 
 - a struct is a custom data type that packages multiple related values and
 makes them a meaningful group
@@ -237,3 +237,4 @@ fn build_square(side_length: u32) -> Rectangle {
 ## Summary
 
 - structs let you create custom types that are meaningful for your code
+\newpage
