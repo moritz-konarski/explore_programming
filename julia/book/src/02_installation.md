@@ -71,3 +71,19 @@ julia>  include("<name>.jl")
 `````
 
 ## How Julia works
+
+- Julia uses LLVM JIT to generate machine code just-in-time
+- the process works like this:
+    1. when a function is run the types are inferred
+    2. the JIT compiler turns the function into native machine code
+    3. the next time a function is called the already compiled code is run (this is the reason that functions are faster the second time around -- important for benchmarking)
+- the code is dynamic because it is not dependent on the type of the variable
+- these functions are by default _generic_, but JIT bytecode for specific types can be inspected like this
+`````julia
+julia>  f(x) = 2x + 5
+    f(generic function with 1 method)
+julia>  code_llvm(f, (Int64,))
+`````
+- the same can be done to inspect the assembly code using the function `code_native(f, (Int64,))`
+- Julia automatically allocates and frees memory, it has a GC that runs at the same time as the program and is somewhat unpredictable
+- calling `gc()` will call the GC, `gc_disable()` to disable it
