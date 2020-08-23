@@ -1,5 +1,5 @@
 ---
-title:      'The `Julia` Programming Language: Notes'
+title:      'Getting Started with Julia: Notes'
 author:     Moritz M. Konarski
 date:       \today
 keywords:   [Julia, programming, notes, learn programming]
