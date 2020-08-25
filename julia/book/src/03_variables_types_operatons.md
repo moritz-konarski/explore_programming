@@ -133,3 +133,160 @@
 - `split(string, char or [chars])` -- splits string at char, returns an array of strings -- if there is no char given, split uses whitespace
 
 ## Formatting numbers and strings
+
+- formatted printing is done with the `@printf` macro, it takes one format string and one or more variables 
+`````julia
+    name = "Paskal"
+    @printf("Hello, %s\n", name)
+    # prints "Hello, Paskal"
+`````
+- to return the formatted string, use `@sprintf`
+- `show()` prints a text representation of an object that is often more specific than simple `@printf`
+    - integer `%d` 
+`````julia
+        @printf("%d\n", 100)                #> 100
+`````
+    - float `%.3f`
+`````julia
+        @printf("%.2f\n", 2.346)            #> 2.34
+        # or 
+        str = @sprintf("%.2f\n", 2.346)
+        show(str)                           #> "2.34"
+`````   
+    - scientific `%0.3e`
+`````julia
+        @printf("%.2e", 123)                #> 1.23e+2
+`````
+    - character `%c`
+`````julia
+        @printf("%c", 'd')                  #> d
+`````
+    - string `%s`
+`````julia
+        @printf("%s", "hi")                 #> hi
+`````
+    - right justify `%50s`
+`````julia
+        @printf("%8s", "hi")                #>         hi
+`````
+- a specia type of string is the `VersionNumber`, preceded by a `v`, is used to run different code for different versions of Julia
+`````julia
+    v"0.3"
+`````
+
+## Regular Expressions
+
+- Julia uses Perl syntax for regex, see <http://www.regular-expressions.info/reference.html>
+- regular expressions are denoted by a string preceede by `r`
+`````julia
+    r"..."
+`````
+- matching an email address
+`````julia
+    # '+' matches any non-empty group of characters
+    email_pattern = r".+@.+"
+    input = "john.doe@mit.edu"
+    println(ismatch(email_pattern, input))  #> true
+`````
+- `ismatch(pattern, string)` returns a boolean whether or not the pattern is matched
+- `match(patters, string)` returns `nothing` or `RegexMatch` if the pattern is found
+- `RegexMatch` has the properties `match` (contains substring that matches), `offset` (position of match in string), `offsets` (start positions for each of the substrings), `captures` (captured substrings as tuple)
+- capturing in regex can be done with parethesis `()`, line
+`````julia
+    email_pattern = r"(.+)@(.+)"
+`````
+- this will capture the hostname and username of the email address
+- `replace` also takes regex as inputs to replace by
+- `matchall` returns all the matches in an array
+- `eachmatch` returns an iterator of matches
+
+## Ranges and arrays
+
+- ranges work as 
+`````julia
+    for i in <start>:(<interval>):<end>
+        ...
+    end
+````
+- the start and end are inclusive, if the interval is one it can be omitted
+- arrays are of type array and can only hold the same type of value
+- `Array{T, n}` is type and dimension
+- 1D arrays are also called vectors
+`````julia
+    arr = [100, 25, 37]
+`````
+- arrays are really vectors and they grow dynamically
+- arrays can also be constructed abstractly
+`````julia
+    arr = Array(Int64, 5)
+    show(arr)               #> [0,0,0,0,0]
+`````
+- to add to an array, use push!
+`````julia
+    push!(arr, 1)
+`````
+- arrays can also be created from slices
+`````julia
+    arr = [1:9]
+`````
+- to allocate a certain amount of memory (so it does not need to be resized) to one array at once do
+`````julia
+    sizehint(arr, 10^5)
+`````
+- array indices start at `1` and can be used in brackets `arr[1]` and `end` is the final element
+- `eltype` gives element type, `length` the number of elements, `ndims` the number of dimensions, `size(arr, n)` gives the elements per dimension
+- to turn an array into a comma separated string, use `join(arr, "sep")`
+- slices can retrieve sub-arrays and they can also be assigned to 
+`````julia
+    arr[1:3]    #> [1, 2, 3]
+    arr[1:3] = 1
+    arr[1:3] = [2, 3, 4]
+`````
+
+## Other ways to create arrays
+
+- `zeros(n)` returns an array with n 0s, `ones` does the same for 1s
+- `linspace(start, stop, n)` returns an array of n with equally spaced numbers from start to stop
+- `fill!(arr, n)` returns an array filled with only ns
+- to get random values, use
+`````julia
+    arr = rand(T, n)
+    # returns n random numbers of type T
+`````
+- arrays can also be converted using the normal conversion functions
+
+## Some common functions for arrays
+
+- concatenate arrays with `append!(arr1, arr2)`
+- __any function ending in `!` modifies the first element it is given__
+- `push!` and `pop!` work like on the stack
+- `shift!` pops the first element, `unshift!` pushes an element to arr[1]
+- `splice!(index)` removes the element at index
+- `in(val, arr)` checks if val is in arr
+- `sort` and `sort!` sort the arrays, the latter changes it
+- `for` loops can iterate over arrays
+- element wise operations are done with a point
+`````julia
+    a1 = [1, 2, 3]
+    a1 = [2, 4, 6]
+    a1 .* a2
+`````
+- the dot product is done with `dot(a1, a2)`
+- the sum over an array is `sum(a1, a2)`
+- arrays are passed as references -- they point to the same memory
+- many functions are simply applied to each element in an array
+- `repeat` repeats each element in an array a certain number of times
+- `copy` makes a copy of the first level, `deepcopy` goes through everything recursively
+
+## Array of chars to string
+
+- `join(arr)` turns a [char] into a string, `utf32(arr)` does the same
+- to pass the contents of array as separate parameters, use the splice operator, like `string(arr...)`
+
+## Dates and times
+
+- `time()` returns seconds since epoch
+- `strftime(time())` returns more useful formatted time
+- `Date` and `DateTime` functions return more useful and subtractable values
+
+## Scope and constants
