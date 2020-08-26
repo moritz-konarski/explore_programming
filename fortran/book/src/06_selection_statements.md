@@ -54,3 +54,27 @@
     end if
 ```
 - select case statement
+```fortran
+    select case ( var )
+        case ( selector )
+            ...
+        case default
+            ...
+    end select
+```
+- selectors can be
+```fortran
+    ! only 1 value
+    ( value )
+    ! from val1 to val2 inclusive
+    ( val1 : val2 )
+    ! greater or equal val1
+    ( val1 : )
+    ! less or equal val2
+    ( : val2 )
+```
+- there can also be lists of numbers in the selector
+```fortran
+    case (1,3,4,5,6,7)
+        ...
+```
