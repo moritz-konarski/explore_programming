@@ -1,5 +1,5 @@
 ---
-title:      'The `Haskell` Programming Language: Notes'
+title:      'Haskell: Notes'
 author:     Moritz M. Konarski
 date:       \today
 keywords:   [Haskell, programming, notes, learn programming]
