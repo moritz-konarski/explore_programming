@@ -1,2 +1,1 @@
-r = 5.0
-area = pi * r^2
+area r = pi * r^2
