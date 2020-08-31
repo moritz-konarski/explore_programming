@@ -26,3 +26,19 @@
 ```haskell
     squareOfF = square . f
 ```
+
+## Prelude and the libraries
+
+- the standard library in Haskell is called the prelude
+- it provides the types and general functions
+- you can import modules into your program
+```haskell
+    import Data.List
+```
+- in GHCi use `:m +<name>`
+- using the standard library can make programs much shorter
+```haskell
+    -- program that reverses the order of strings
+    revWords :: String -> String
+    revWords input = (unwords . reverse . words) input
+```
