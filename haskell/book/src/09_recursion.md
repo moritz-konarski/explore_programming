@@ -14,3 +14,4 @@
 - `go` can be used to translate loops from other languages into Haskell
 - many functions have recursive versions -- multiplication for example
  TODO: look at the exercises to practice
+
