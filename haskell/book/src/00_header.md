@@ -14,4 +14,6 @@ hyperrefoptions:
 - linktoc=all
 - colorlinks=true
 utopia:
+titlesec:
+- explicit
 ---
