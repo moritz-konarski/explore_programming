@@ -33,4 +33,3 @@ immutable types
 ```
 - list recursion generally involves an empty list case and then one where the
 tail is passed to the function again
-# TODO: implement examples
