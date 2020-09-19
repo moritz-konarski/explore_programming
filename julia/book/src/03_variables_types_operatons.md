@@ -290,3 +290,11 @@
 - `Date` and `DateTime` functions return more useful and subtractable values
 
 ## Scope and constants
+
+- local scope is better because the compiler cannot optimize performance if
+a global var could change at any point
+- type annotations `y::Float64` can only be used in local scope
+- constants are declared using `const` and their names are written in upper
+case
+- you can actually change the value of a constant, you just cannot change its
+type -- this is because speed matters
