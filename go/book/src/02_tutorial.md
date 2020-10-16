@@ -40,3 +40,33 @@ which you can make but don't have to
 files correctly
 
 ## Command Line Arguments
+
+- the command line arguments are available through the `os` package
+```go
+    os.Args
+```
+- it is a slice of strings, where `s[i]` is the `i`th elements, and `s[m:n]` is
+a continuous subsequence of strings
+- `os.Args[0]` is the name of the command, to get all the command line
+arguments we use
+```go
+    os.Args[1:]
+```
+- we can write `echo` in this way
+```go
+// Echo1 prints its command-line arguments.
+package main
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+    var s, sep string
+    for i := 1; i < len(os.Args); i++ {
+        s += sep + os.Args[i]
+        sep = " "
+    }
+    fmt.Println(s)
+}
+```
